@@ -48,7 +48,7 @@
         
         <plugins-plist key="PGLocationManager" string="PGLocationManager" />
 
-        <header-file src="src/iOS/LocationManager/PGLocationManager.h" />
-        <source-file src="src/iOS/LocationManager/PGLocationManager.m" />
+        <header-file src="src/iOS/PGLocationManager/PGLocationManager.h" />
+        <source-file src="src/iOS/PGLocationManager/PGLocationManager.m" />
     </platform>
 </plugin>
