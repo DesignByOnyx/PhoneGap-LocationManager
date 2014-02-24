@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.phonegap.plugins.LocationManager"
+    version="1.0.0">
+    
+    <engines>
+	    <engine name="cordova" version="&gt;=3.0.0" platform="ios|android" />
+	</engines>
+	
+	<name>LocationManager</name>
+	<description>Location Manager (iOS) and Region Monitor (Android) plugin for PhoneGap 3.x which allows for Geofencing and Significant Location Change monitoring.</description>
+	<author>Ryan Wheale (originally by Dov Goldberg of Ogonium)</author>
+	<license>The MIT License</license>
+	
+	<js-module src="www/LocationManager.js" name="LocationManager">
+        <clobbers target="window.LocationManager" />
+	</js-module>
+	
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="LocationManager" >
+	        	<param name="android-package" value="com.phonegap.plugins.locationmanager.PGLocationManager"/>
+			</feature>
+		</config-file>
+		
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.phonegap.plugins.locationmanager.ProximityReceiver">
+                <intent-filter>
+                    <action android:name="LocationManagerProximityAlert"/>
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+		
+		<source-file src="src/android/locationmanager/PGLocationManager.java" target-dir="src/com/phonegap/plugins/locationmanager/" />
+        <source-file src="src/android/locationmanager/PGLocationManagerService.java" target-dir="src/com/phonegap/plugins/locationmanager/" />
+        <source-file src="src/android/locationmanager/LocationChangedListener.java" target-dir="src/com/phonegap/plugins/locationmanager/" />
+        <source-file src="src/android/locationmanager/ProximityReceiver.java" target-dir="src/com/phonegap/plugins/locationmanager/" />
+	</platform>
+	
+	<platform name="ios">
+		<config-file target="config.xml" parent="/*">
+                <feature name="LocationManager">
+                        <param name="ios-package" value="PGLocationManager"/>
+                </feature>
+        </config-file>
+        
+        <plugins-plist key="PGLocationManager" string="PGLocationManager" />
+
+        <header-file src="src/iOS/LocationManager/PGLocationManager.h" />
+        <source-file src="src/iOS/LocationManager/PGLocationManager.m" />
+    </platform>
+</plugin>
